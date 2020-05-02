@@ -35,7 +35,8 @@ entity ctrl is
            MemWr : out  STD_LOGIC;
            Mem2Reg : out  STD_LOGIC;
            RegWr : out  STD_LOGIC;
-           RegDest : out  STD_LOGIC);
+           RegDest : out  STD_LOGIC;
+			  Branch : out STD_LOGIC);
 end ctrl;
 
 architecture Behavioral of ctrl is
@@ -44,14 +45,15 @@ begin
 
 	MemWr <= '1' when OP = b"10_1011" else '0';
 	Mem2Reg <= '1' when OP = b"10_0011" else '0';
-	RegWr <= '0' when OP = b"10_1011" else '1';
-	RegDest <= '0' when OP = b"10_0011" else
-	           '0' when OP = b"10_1011" else '1';
-	ALUSrc <= '1' when OP = b"10_0011" else
-				 '1' when OP = b"10_1011" else '0';
-	ALUOP <= "00" when Funct = b"10_0000" or OP = b"10_0011" or OP = b"10_1011" else
+	RegWr <= '0' when OP = b"10_1011" or OP = b"00_0100" else '1';
+	RegDest <= '0' when OP = b"10_0011" or OP = b"10_1011" or OP = b"00_0100" else
+				  '1';
+	ALUSrc <= '1' when OP = b"10_0011" or OP = b"10_1011" else
+				 '0';
+	ALUOP <= "00" when Funct = b"10_0000" or OP = b"10_0011" or OP = b"10_1011" or OP = b"00_0100" else
 				"01" when Funct = b"10_0010" else
 				"10" when Funct = b"10_0100" else
 				"11" when Funct = b"10_0101";
+	Branch <= '1' when OP = b"00_0100" else '0';
 end Behavioral;
 
