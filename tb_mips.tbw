@@ -1,9 +1,9 @@
 version 3
-E:/XilinxProjects/mips/mips.vhf
+E:/XilinxProjects/MIPS_Sys/mips.vhf
 mips
 VHDL
 VHDL
-E:/XilinxProjects/mips/tb_mips.xwv
+E:/XilinxProjects/MIPS_Sys/tb_mips.xwv
 Clocked
 -
 -
